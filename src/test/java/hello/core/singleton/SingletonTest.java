@@ -18,12 +18,25 @@ public class SingletonTest {
 
         // fixme - 2. 조회 : 호출할때마다 객체를 생성
         MemberService memberService2 = appConfig.memberService();
-        
+
         // fixme - 3. 참조값이 다른 것을 확인
         System.out.println("memberService1 = " + memberService1);
         System.out.println("memberService2 = " + memberService2);
 
         // fixme - 4. memberService1 은 memberService2 와 달라야한다.
         Assertions.assertThat(memberService1).isNotSameAs(memberService2);
+
+    }
+    
+    @Test
+    @DisplayName("싱글톤 패턴을 적용한 객체 사용")
+    void singletonServiceTest() {
+        SingletonService singletonService1 = SingletonService.getInstance();
+        SingletonService singletonService2 = SingletonService.getInstance();
+
+        System.out.println("singletonService1 = " + singletonService1);
+        System.out.println("singletonService2 = " + singletonService2);
+
+        Assertions.assertThat(singletonService1).isSameAs(singletonService2);
     }
 }

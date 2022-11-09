@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+// fixme -클래스이름인 MemoryMeberRepository 가 소문자로 바껴서 memoryMemberRepository 로 빈 등록 (수동)
 @Component
 public class MemoryMemberRepository implements MemberRepository{
 

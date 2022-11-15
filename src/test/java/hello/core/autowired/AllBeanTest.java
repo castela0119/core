@@ -19,20 +19,29 @@ public class AllBeanTest {
 
     @Test
     void findAllBean() {
+        
+        // fixme - AutoAppConfig 와 DiscountService 를 스프링 빈으로 등록
         ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class, DiscountService.class);
 
         DiscountService discountService = ac.getBean(DiscountService.class);
+
+        // fixme - member
         Member member = new Member(1L, "userA", Grade.VIP);
-        int discountPrice = discountService.discount(member, 10000, "fixDiscountPolicy");
+
+        // fixme - fixDiscountPolicy 를 넣어준 경우 - 빈 이름을 fix 로 바꾸면 조금 더 단순해질 수도 있다.
+        int fixdiscountPrice = discountService.discount(member, 10000, "fixDiscountPolicy");
 
         assertThat(discountService).isInstanceOf(DiscountService.class);
-        assertThat(discountPrice).isEqualTo(1000);
+        assertThat(fixdiscountPrice).isEqualTo(1000);
 
+        // fixme - rateDiscountPolicy 를 넣어준 경우 - 빈 이름을 rate 로 바꾸면 조금 더 단순해질 수도 있다.
         int rateDiscountPrice = discountService.discount(member, 20000, "rateDiscountPolicy");
+
         assertThat(rateDiscountPrice).isEqualTo(2000);
     }
 
     // fixme - 생성자가 하나이기 때문에 @Autowired 생략해도됨
+    // fixme - 기존 OrderService 를 손대면 너무 복잡해지니깐 DiscountService 를 새로 만들겠음.
     static class DiscountService {
 
         private final Map<String, DiscountPolicy> policyMap;
